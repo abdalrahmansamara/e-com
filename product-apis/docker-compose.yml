@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: product-apis
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+      DB_USER: username
+      DB_PASSWORD: password
+      DB_NAME: master
+      DB_HOST: db
+      DB_PORT: 5432
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ['npm', 'run', 'start']
+
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: master
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
+    driver: local

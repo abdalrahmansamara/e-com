@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: order-apis
+    environment:
+      NODE_ENV: development
+      DB_USER: username
+      DB_PASSWORD: password
+      DB_NAME: master
+      DB_HOST: db
+      DB_PORT: 5432
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ['npm', 'run', 'start']

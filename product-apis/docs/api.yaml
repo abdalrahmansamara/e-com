@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  description: API for managing products
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /v1/products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: List of all products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+    post:
+      summary: Create a new product
+      requestBody:
+        description: Product data to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created successfully
+        '400':
+          description: Invalid input
+
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the product
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+
+    patch:
+      summary: Update product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the product
+      requestBody:
+        description: Updated product data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Product not found
+
+    delete:
+      summary: Delete product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier of the product
+      responses:
+        '204':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the product
+        name:
+          type: string
+          description: Name of the product
+        description:
+          type: string
+          description: Description of the product
+        price:
+          type: number
+          format: float
+          description: Price of the product
+        stock:
+          type: integer
+          description: Stock of the product
+      required:
+        - name
+        - price
+        - stock
