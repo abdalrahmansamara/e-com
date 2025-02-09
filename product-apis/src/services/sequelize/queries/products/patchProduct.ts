@@ -15,5 +15,10 @@ export const patchProduct = async (req: Request) => {
       where: { id },
     }
   );
-  return updatedRows ? {message: `Product ${id} was updated successfully!`} : updatedRows
+  if (updatedRows) {
+    Log.info("Product updated successfully!", { productId: id })
+    return { message: `Product ${id} was updated successfully!` }
+  }
+  Log.error("Product doesn't exist!", { productId: id })
+  return updatedRows
 };

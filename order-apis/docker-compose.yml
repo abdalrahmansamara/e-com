@@ -11,6 +11,7 @@ services:
       DB_NAME: master
       DB_HOST: db
       DB_PORT: 5432
+      RECURLY_API_CLIENT_KEY: abc
     ports:
       - '3001:3001'
     volumes:

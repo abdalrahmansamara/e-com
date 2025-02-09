@@ -8,5 +8,10 @@ export const deleteProduct = async (req: Request) => {
       id
     }
   })
-  return results ? {message: `Product ${id} was deleted successfully!`} : results
+  if (results) {
+    Log.info("Product deleted successfully!", { productId: id })
+    return { message: `Product ${id} was deleted successfully!` }
+  }
+  Log.error("Product doesn't exist!", { productId: id })
+  return results
 };

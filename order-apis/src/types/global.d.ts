@@ -30,6 +30,7 @@ declare global {
   var AppConfigs: Record<string, any>;
   var Log: any;
   var HttpStatus: Record<string, any>;
+  var recurlyClient: any;
 }
 
-export {}; // Ensures it's treated as a module
+export { };

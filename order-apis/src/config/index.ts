@@ -3,6 +3,7 @@ require('dotenv').config();
 import httpStatus from "http-status";
 import fs from "fs";
 import path from "path";
+import recurly from "recurly";
 
 import logger from "./logger";
 import globalConfig from "./global";
@@ -19,4 +20,5 @@ const appConfigs = () => ({ ...globalConfig, ...envConfig });
   global.AppConfigs = appConfigs();
   global.Log = logger;
   global.HttpStatus = httpStatus;
+  global.recurlyClient = new recurly.Client(AppConfigs.services.recurly.apiKey);
 })();

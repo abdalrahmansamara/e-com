@@ -27,6 +27,11 @@ const globalConfig = {
     ,
     ssl: nodeEnv !== 'development',
   },
+  services: {
+    recurly: {
+        apiKey: process.env.RECURLY_API_CLIENT_KEY,
+    }
+  }
 }
 
 export default globalConfig;

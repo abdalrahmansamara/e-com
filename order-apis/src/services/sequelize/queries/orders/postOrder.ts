@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { Transaction } from 'sequelize';
 import db from '../../models';
+import { createInvoice } from '../../../recurlyService';
 
 const calculateTotalPrice = async (products: { productId: string, quantity: number }[], transaction: Transaction) => {
   let totalAmount = 0;
@@ -61,6 +62,9 @@ export const postOrder = async (req: Request) => {
     quantity: product.quantity,
   }));
   await db.OrderProduct.bulkCreate(orderProducts, { transaction });
+  await createInvoice(totalAmount)
+  // call recurly to create the transaction
+  Log.info("Order was created successfully!", { orderId: order.id })
   await transaction.commit()
   return order;
 };

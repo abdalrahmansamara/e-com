@@ -33,7 +33,11 @@ Ensure that your `.env` file contains the correct configuration for your environ
 
 ### Running with Docker
 
-You can run the application using Docker Compose to set up the services quickly. To start the containers, simply run:
+You can run the application using Docker Compose to set up the services quickly. To start the containers, simply do the following steps:
+
+1. add `RECURLY_API_CLIENT_KEY` value to the docker compose file
+
+2. run docker compose file
 
 ```sh
 docker compose up

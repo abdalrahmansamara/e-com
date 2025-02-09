@@ -15,7 +15,6 @@ interface DB {
 const db: DB = {} as DB;
 
 let sequelize: Sequelize;
-console.log(config)
 sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 // Read model files and import them dynamically
